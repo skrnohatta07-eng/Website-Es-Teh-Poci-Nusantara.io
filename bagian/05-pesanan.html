@@ -1,0 +1,54 @@
+<!-- PESANAN -->
+<section class="section band" id="pesanan">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Pesananmu</h2>
+        <p>Cek lagi jumlahnya, atur pengambilan, lalu kirim pesanan lewat WhatsApp. <span class="status" data-status></span></p>
+      </div>
+    </div>
+    <div class="order">
+      <div>
+        <ul class="cart-list" id="cartList"></ul>
+        <div class="empty" id="cartEmpty">Belum ada pesanan. Pilih dari <a href="#menu">menu</a> atau <a href="#racik">racik es tehmu</a>.</div>
+        <div class="totals" aria-live="polite">
+          <div><span>Subtotal</span><span id="subTotal">Rp 0</span></div>
+          <div class="disc" id="discRow" hidden><span id="discLabel">Diskon</span><span id="discAmt"></span></div>
+          <div id="feeRow" hidden><span>Ongkos antar</span><span id="feeAmt"></span></div>
+          <div class="grand"><span>Total</span><strong id="cartTotal">Rp 0</strong></div>
+        </div>
+        <button class="btn ghost small clear-btn" id="clearCart" type="button" hidden>Kosongkan pesanan</button>
+      </div>
+
+      <div class="panel checkout">
+        <fieldset class="seg">
+          <legend>Pengambilan</legend>
+          <div class="seg-opts">
+            <label><input type="radio" name="method" value="ambil" checked><span>Ambil di tempat</span></label>
+            <label><input type="radio" name="method" value="antar"><span>Diantar <small id="feeHint"></small></span></label>
+          </div>
+        </fieldset>
+        <label>Nama
+          <input type="text" id="custName" autocomplete="name" placeholder="Nama untuk pesanan">
+        </label>
+        <label id="addrLabel" hidden>Alamat pengantaran
+          <textarea id="custAddr" autocomplete="street-address" placeholder="Jalan, nomor, patokan"></textarea>
+        </label>
+        <label>Catatan
+          <textarea id="custNote" placeholder="Contoh: es batunya dipisah"></textarea>
+        </label>
+        <div>
+          <label for="promoInput">Kode promo</label>
+          <div class="promo">
+            <input type="text" id="promoInput" placeholder="Contoh: POCI7" autocomplete="off" autocapitalize="characters">
+            <button type="button" class="btn ghost small" id="promoBtn">Pakai</button>
+          </div>
+          <p class="msg" id="promoMsg"></p>
+        </div>
+        <a class="btn wide" id="waLink" href="#pesanan" target="_blank" rel="noopener" aria-disabled="true">Kirim lewat WhatsApp</a>
+        <p class="msg" id="orderMsg"></p>
+        <p class="hint">Pesananmu tersimpan di browser ini sampai kamu mengosongkannya.</p>
+      </div>
+    </div>
+  </div>
+</section>

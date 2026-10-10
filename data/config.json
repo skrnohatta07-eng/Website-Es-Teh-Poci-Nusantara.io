@@ -1,0 +1,11 @@
+{
+  "shop": {
+    "name": "Es Teh Poci Nusantara",
+    "wa": "085845514171",
+    "address": "JL. Minasa Upa Raya",
+    "landmark": "Setiap hari, 09.00 sampai 17.00",
+    "open": 9,
+    "close": 17,
+    "fee": 5000
+  }
+}

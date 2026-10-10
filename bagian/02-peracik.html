@@ -1,0 +1,154 @@
+<!-- PERACIK -->
+<section class="hero" id="racik">
+  <div class="wrap">
+    <div class="hero-head">
+      <img class="hero-logo" src="gambar/logo.png" width="600" height="490" alt="">
+      <div>
+        <h1>Racik Es Teh <span class="nowrap">Poci-mu,</span> dingin dan sesuai selera.</h1>
+        <p>Pilih rasanya, atur esnya, lalu pilih ukuran. Teko poci menuang tehnya, gelas ikut berubah warna, dan harganya langsung terhitung.</p>
+      </div>
+    </div>
+
+    <div class="builder-grid">
+      <div class="panel builder">
+        <div class="presets" role="group" aria-label="Mulai dari resep siap pakai">
+          <span class="presets-label">Mulai dari resep:</span>
+          <button type="button" class="chip" data-flavor="original" data-size="besar">Original</button>
+          <button type="button" class="chip" data-flavor="lemonhoney" data-size="besar">Lemon Honey</button>
+          <button type="button" class="chip" data-flavor="mango" data-size="besar">Mango</button>
+          <button type="button" class="chip" data-flavor="thaitea" data-size="besar">Thai Tea</button>
+          <button type="button" class="chip chip-random" id="randomBtn">Kejutkan aku</button>
+        </div>
+
+        <!-- Langkah 1: rasa -->
+        <div class="step" role="group" aria-labelledby="st1">
+          <p class="step-title" id="st1"><span class="step-no">1</span>Pilih rasa</p>
+          <div id="flavorGroups"><!-- diisi lewat script.js dari daftar FLAVORS, supaya kartu dan harga selalu cocok --></div>
+        </div>
+
+        <!-- Langkah 2: ukuran (hanya tampil untuk rasa yang punya dua ukuran, misalnya Original) -->
+        <div class="step" id="sizeStep" role="group" aria-labelledby="st2">
+          <p class="step-title" id="st2"><span class="step-no">2</span>Pilih ukuran</p>
+          <div class="picks picks-2" id="sizePicks"></div>
+        </div>
+
+        <!-- Langkah 4: es batu -->
+        <div class="step">
+          <div class="step-title"><span class="step-no">3</span><label for="ice">Berapa es batunya?</label><output id="iceOut" for="ice"></output></div>
+          <input class="range" type="range" id="ice" min="0" max="3" step="1" value="2">
+          <div class="ticks" id="iceTicks" aria-hidden="true"><span>Tanpa</span><span>Sedikit</span><span>Normal</span><span>Banyak</span></div>
+        </div>
+
+        <div class="builder-foot" aria-live="polite">
+          <div>
+            <p class="sum-name" id="sumName"></p>
+            <p class="sum-detail" id="sumDetail"></p>
+          </div>
+          <p class="sum-price" id="sumPrice"></p>
+        </div>
+        <button class="btn wide big" id="addBuilder" type="button">Tambah ke pesanan</button>
+      </div>
+
+      <div class="stage-col">
+        <div class="stage" id="stage" data-size="reguler">
+          <div class="price-sticker" id="priceSticker" aria-hidden="true"><small>racikanmu</small><b id="stickerPrice"></b></div>
+          <svg viewBox="25 -80 360 550" role="img" aria-label="Gelas es teh dan teko poci yang berubah sesuai pilihanmu">
+            <defs>
+              <clipPath id="glassClip"><path d="M73 72 L247 72 L220 426 Q219 430 214 430 L106 430 Q101 430 100 426 Z"/></clipPath>
+              <linearGradient id="shade" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#000" stop-opacity=".2"/>
+                <stop offset=".45" stop-color="#fff" stop-opacity=".05"/>
+                <stop offset="1" stop-color="#000" stop-opacity=".14"/>
+              </linearGradient>
+            </defs>
+
+            <!-- aliran teh dari teko (di belakang gelas, jadi tertutup teh saat masuk) -->
+            <path class="stream" id="stream" pathLength="100" d="M208 -2 C208 40 211 130 213 230"/>
+
+            <g id="cupGroup">
+              <ellipse class="cup-shadow" cx="160" cy="450" rx="86" ry="10"/>
+              <g id="cupWobble">
+                <g clip-path="url(#glassClip)">
+                  <g class="fill-in">
+                    <g id="level">
+                      <rect id="tea" x="0" y="98" width="320" height="380" fill="#B3540F"/>
+                      <rect id="milk" x="0" y="98" width="320" height="380" opacity="0"/>
+                      <rect x="0" y="98" width="320" height="380" fill="url(#shade)"/>
+                      <ellipse cx="160" cy="98" rx="110" ry="6" fill="#fff" fill-opacity=".28"/>
+                    </g>
+                  </g>
+                  <g id="bubbles">
+                    <circle class="bubble" cx="118" cy="420" r="3" style="--d:-0.5s;--t:5s"/>
+                    <circle class="bubble" cx="140" cy="420" r="2.2" style="--d:-2.4s;--t:6s"/>
+                    <circle class="bubble" cx="166" cy="420" r="3.4" style="--d:-1.2s;--t:4.6s"/>
+                    <circle class="bubble" cx="188" cy="420" r="2.4" style="--d:-3.6s;--t:5.4s"/>
+                    <circle class="bubble" cx="206" cy="420" r="3" style="--d:-0.2s;--t:6.2s"/>
+                    <circle class="bubble" cx="152" cy="420" r="2" style="--d:-4.4s;--t:4.8s"/>
+                    <circle class="bubble" cx="196" cy="420" r="2.6" style="--d:-2.9s;--t:5.8s"/>
+                  </g>
+                  <g id="boba" class="opt off"></g>
+                  <g id="ices"></g>
+                </g>
+
+                <path class="glass-body" d="M70 70 L250 70 L222 426 Q221 432 214 432 L106 432 Q99 432 98 426 Z"/>
+                <path d="M84 98 L99 402" stroke="#fff" stroke-opacity=".55" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <g id="drops"></g>
+
+                <!-- sedotan -->
+                <line x1="160" y1="384" x2="190" y2="14" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+                <line x1="160" y1="384" x2="190" y2="14" stroke="#E23B2B" stroke-width="10" stroke-dasharray="8 12"/>
+
+                <!-- lemon -->
+                <g transform="translate(240 80) rotate(-18)">
+                  <g id="lemon" class="opt off">
+                    <circle r="31" fill="#EFB812"/>
+                    <circle r="27" fill="#FFF3B8"/>
+                    <circle r="23" fill="#F7D34C"/>
+                    <g stroke="#FFF3B8" stroke-width="2.5" stroke-linecap="round">
+                      <path d="M0 0V-23M0 0L16 -16M0 0H23M0 0L16 16M0 0V23M0 0L-16 16M0 0H-23M0 0L-16 -16"/>
+                    </g>
+                  </g>
+                </g>
+
+                <!-- mint -->
+                <g transform="translate(98 66)">
+                  <g id="mint" class="opt off">
+                    <g fill="#3A9A5B" stroke="#25703F" stroke-width="1.5">
+                      <ellipse cx="-10" cy="-14" rx="10" ry="19" transform="rotate(-38 -10 -14)"/>
+                      <ellipse cx="6" cy="-20" rx="10" ry="19" transform="rotate(8 6 -20)"/>
+                      <ellipse cx="20" cy="-8" rx="9" ry="17" transform="rotate(48 20 -8)"/>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <!-- teko poci -->
+            <g transform="translate(276 -10)">
+              <g class="pot" id="pot">
+                <rect x="-80" y="-62" width="160" height="124" fill="none"/>
+                <path d="M36 -16 C74 -32 78 24 34 18" fill="none" stroke="#B82A1E" stroke-width="8" stroke-linecap="round"/>
+                <path d="M-34 -4 C-50 -6 -52 -24 -64 -32 L-55 -37 C-43 -30 -40 -16 -30 -18 Z" fill="#E23B2B" stroke="#B82A1E" stroke-width="2" stroke-linejoin="round"/>
+                <ellipse cx="0" cy="2" rx="42" ry="34" fill="#E23B2B" stroke="#B82A1E" stroke-width="2"/>
+                <ellipse cx="-15" cy="-10" rx="14" ry="8" fill="#fff" fill-opacity=".3" transform="rotate(-25 -15 -10)"/>
+                <path d="M-40 10 Q0 26 40 10" fill="none" stroke="#FFC72C" stroke-width="5" stroke-linecap="round"/>
+                <g fill="#FFC72C"><circle cx="-16" cy="4" r="3"/><circle cx="0" cy="8" r="3"/><circle cx="16" cy="4" r="3"/></g>
+                <rect x="-27" y="-35" width="54" height="7" rx="3.5" fill="#FFC72C" stroke="#B82A1E" stroke-width="1.5"/>
+                <path d="M-22 -34 Q0 -54 22 -34 Z" fill="#C42A1F"/>
+                <circle cx="0" cy="-50" r="6" fill="#FFC72C" stroke="#B82A1E" stroke-width="2"/>
+                <rect x="-24" y="34" width="48" height="8" rx="4" fill="#B82A1E"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="meters" role="group" aria-label="Rasa racikanmu">
+          <div class="meter"><span class="meter-name">Manis</span><span class="bar" role="meter" aria-label="Manis" aria-valuemin="0" aria-valuemax="100" data-meter="manis"></span></div>
+          <div class="meter"><span class="meter-name">Segar</span><span class="bar" role="meter" aria-label="Segar" aria-valuemin="0" aria-valuemax="100" data-meter="segar"></span></div>
+          <div class="meter"><span class="meter-name">Creamy</span><span class="bar" role="meter" aria-label="Creamy" aria-valuemin="0" aria-valuemax="100" data-meter="creamy"></span></div>
+          <div class="meter"><span class="meter-name">Pekat</span><span class="bar" role="meter" aria-label="Pekat" aria-valuemin="0" aria-valuemax="100" data-meter="pekat"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

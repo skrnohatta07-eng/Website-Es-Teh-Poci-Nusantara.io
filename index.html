@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FFC72C">
+<title>Es Teh Poci Nusantara</title>
+<link rel="icon" type="image/png" href="gambar/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="jquery.min.js"></script>
+<script src="jquery.js"></script>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#atas">
+      <img src="gambar/logo.png" width="600" height="490" alt="Logo Es Teh Poci, Teh Cap Poci">
+      <span class="sr-only" data-shop-name>Es Teh Poci Nusantara</span>
+    </a>
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="#racik">Racik</a>
+      <a href="#menu">Menu</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#lokasi">Lokasi</a>
+      <a class="cart-link" href="#pesanan">Pesanan <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="atas">
+<!-- PERACIK -->
+<section class="hero" id="racik">
+  <div class="wrap">
+    <div class="hero-head">
+      <img class="hero-logo" src="gambar/logo.png" width="600" height="490" alt="">
+      <div>
+        <h1>Racik Es Teh <span class="nowrap">Poci-mu,</span> dingin dan sesuai selera.</h1>
+        <p>Pilih rasanya, atur esnya, lalu pilih ukuran. Teko poci menuang tehnya, gelas ikut berubah warna, dan harganya langsung terhitung.</p>
+      </div>
+    </div>
+
+    <div class="builder-grid">
+      <div class="panel builder">
+        <div class="presets" role="group" aria-label="Mulai dari resep siap pakai">
+          <span class="presets-label">Mulai dari resep:</span>
+          <button type="button" class="chip" data-flavor="original" data-size="besar">Original</button>
+          <button type="button" class="chip" data-flavor="lemonhoney" data-size="besar">Lemon Honey</button>
+          <button type="button" class="chip" data-flavor="mango" data-size="besar">Mango</button>
+          <button type="button" class="chip" data-flavor="thaitea" data-size="besar">Thai Tea</button>
+          <button type="button" class="chip chip-random" id="randomBtn">Kejutkan aku</button>
+        </div>
+
+        <!-- Langkah 1: rasa -->
+        <div class="step" role="group" aria-labelledby="st1">
+          <p class="step-title" id="st1"><span class="step-no">1</span>Pilih rasa</p>
+          <div id="flavorGroups"><!-- diisi lewat script.js dari daftar FLAVORS, supaya kartu dan harga selalu cocok --></div>
+        </div>
+
+        <!-- Langkah 2: ukuran (hanya tampil untuk rasa yang punya dua ukuran, misalnya Original) -->
+        <div class="step" id="sizeStep" role="group" aria-labelledby="st2">
+          <p class="step-title" id="st2"><span class="step-no">2</span>Pilih ukuran</p>
+          <div class="picks picks-2" id="sizePicks"></div>
+        </div>
+
+        <!-- Langkah 4: es batu -->
+        <div class="step">
+          <div class="step-title"><span class="step-no">3</span><label for="ice">Berapa es batunya?</label><output id="iceOut" for="ice"></output></div>
+          <input class="range" type="range" id="ice" min="0" max="3" step="1" value="2">
+          <div class="ticks" id="iceTicks" aria-hidden="true"><span>Tanpa</span><span>Sedikit</span><span>Normal</span><span>Banyak</span></div>
+        </div>
+
+        <div class="builder-foot" aria-live="polite">
+          <div>
+            <p class="sum-name" id="sumName"></p>
+            <p class="sum-detail" id="sumDetail"></p>
+          </div>
+          <p class="sum-price" id="sumPrice"></p>
+        </div>
+        <button class="btn wide big" id="addBuilder" type="button">Tambah ke pesanan</button>
+      </div>
+
+      <div class="stage-col">
+        <div class="stage" id="stage" data-size="reguler">
+          <div class="price-sticker" id="priceSticker" aria-hidden="true"><small>racikanmu</small><b id="stickerPrice"></b></div>
+          <svg viewBox="25 -80 360 550" role="img" aria-label="Gelas es teh dan teko poci yang berubah sesuai pilihanmu">
+            <defs>
+              <clipPath id="glassClip"><path d="M73 72 L247 72 L220 426 Q219 430 214 430 L106 430 Q101 430 100 426 Z"/></clipPath>
+              <linearGradient id="shade" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#000" stop-opacity=".2"/>
+                <stop offset=".45" stop-color="#fff" stop-opacity=".05"/>
+                <stop offset="1" stop-color="#000" stop-opacity=".14"/>
+              </linearGradient>
+            </defs>
+
+            <!-- aliran teh dari teko (di belakang gelas, jadi tertutup teh saat masuk) -->
+            <path class="stream" id="stream" pathLength="100" d="M208 -2 C208 40 211 130 213 230"/>
+
+            <g id="cupGroup">
+              <ellipse class="cup-shadow" cx="160" cy="450" rx="86" ry="10"/>
+              <g id="cupWobble">
+                <g clip-path="url(#glassClip)">
+                  <g class="fill-in">
+                    <g id="level">
+                      <rect id="tea" x="0" y="98" width="320" height="380" fill="#B3540F"/>
+                      <rect id="milk" x="0" y="98" width="320" height="380" opacity="0"/>
+                      <rect x="0" y="98" width="320" height="380" fill="url(#shade)"/>
+                      <ellipse cx="160" cy="98" rx="110" ry="6" fill="#fff" fill-opacity=".28"/>
+                    </g>
+                  </g>
+                  <g id="bubbles">
+                    <circle class="bubble" cx="118" cy="420" r="3" style="--d:-0.5s;--t:5s"/>
+                    <circle class="bubble" cx="140" cy="420" r="2.2" style="--d:-2.4s;--t:6s"/>
+                    <circle class="bubble" cx="166" cy="420" r="3.4" style="--d:-1.2s;--t:4.6s"/>
+                    <circle class="bubble" cx="188" cy="420" r="2.4" style="--d:-3.6s;--t:5.4s"/>
+                    <circle class="bubble" cx="206" cy="420" r="3" style="--d:-0.2s;--t:6.2s"/>
+                    <circle class="bubble" cx="152" cy="420" r="2" style="--d:-4.4s;--t:4.8s"/>
+                    <circle class="bubble" cx="196" cy="420" r="2.6" style="--d:-2.9s;--t:5.8s"/>
+                  </g>
+                  <g id="boba" class="opt off"></g>
+                  <g id="ices"></g>
+                </g>
+
+                <path class="glass-body" d="M70 70 L250 70 L222 426 Q221 432 214 432 L106 432 Q99 432 98 426 Z"/>
+                <path d="M84 98 L99 402" stroke="#fff" stroke-opacity=".55" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <g id="drops"></g>
+
+                <!-- sedotan -->
+                <line x1="160" y1="384" x2="190" y2="14" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+                <line x1="160" y1="384" x2="190" y2="14" stroke="#E23B2B" stroke-width="10" stroke-dasharray="8 12"/>
+
+                <!-- lemon -->
+                <g transform="translate(240 80) rotate(-18)">
+                  <g id="lemon" class="opt off">
+                    <circle r="31" fill="#EFB812"/>
+                    <circle r="27" fill="#FFF3B8"/>
+                    <circle r="23" fill="#F7D34C"/>
+                    <g stroke="#FFF3B8" stroke-width="2.5" stroke-linecap="round">
+                      <path d="M0 0V-23M0 0L16 -16M0 0H23M0 0L16 16M0 0V23M0 0L-16 16M0 0H-23M0 0L-16 -16"/>
+                    </g>
+                  </g>
+                </g>
+
+                <!-- mint -->
+                <g transform="translate(98 66)">
+                  <g id="mint" class="opt off">
+                    <g fill="#3A9A5B" stroke="#25703F" stroke-width="1.5">
+                      <ellipse cx="-10" cy="-14" rx="10" ry="19" transform="rotate(-38 -10 -14)"/>
+                      <ellipse cx="6" cy="-20" rx="10" ry="19" transform="rotate(8 6 -20)"/>
+                      <ellipse cx="20" cy="-8" rx="9" ry="17" transform="rotate(48 20 -8)"/>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <!-- teko poci -->
+            <g transform="translate(276 -10)">
+              <g class="pot" id="pot">
+                <rect x="-80" y="-62" width="160" height="124" fill="none"/>
+                <path d="M36 -16 C74 -32 78 24 34 18" fill="none" stroke="#B82A1E" stroke-width="8" stroke-linecap="round"/>
+                <path d="M-34 -4 C-50 -6 -52 -24 -64 -32 L-55 -37 C-43 -30 -40 -16 -30 -18 Z" fill="#E23B2B" stroke="#B82A1E" stroke-width="2" stroke-linejoin="round"/>
+                <ellipse cx="0" cy="2" rx="42" ry="34" fill="#E23B2B" stroke="#B82A1E" stroke-width="2"/>
+                <ellipse cx="-15" cy="-10" rx="14" ry="8" fill="#fff" fill-opacity=".3" transform="rotate(-25 -15 -10)"/>
+                <path d="M-40 10 Q0 26 40 10" fill="none" stroke="#FFC72C" stroke-width="5" stroke-linecap="round"/>
+                <g fill="#FFC72C"><circle cx="-16" cy="4" r="3"/><circle cx="0" cy="8" r="3"/><circle cx="16" cy="4" r="3"/></g>
+                <rect x="-27" y="-35" width="54" height="7" rx="3.5" fill="#FFC72C" stroke="#B82A1E" stroke-width="1.5"/>
+                <path d="M-22 -34 Q0 -54 22 -34 Z" fill="#C42A1F"/>
+                <circle cx="0" cy="-50" r="6" fill="#FFC72C" stroke="#B82A1E" stroke-width="2"/>
+                <rect x="-24" y="34" width="48" height="8" rx="4" fill="#B82A1E"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="meters" role="group" aria-label="Rasa racikanmu">
+          <div class="meter"><span class="meter-name">Manis</span><span class="bar" role="meter" aria-label="Manis" aria-valuemin="0" aria-valuemax="100" data-meter="manis"></span></div>
+          <div class="meter"><span class="meter-name">Segar</span><span class="bar" role="meter" aria-label="Segar" aria-valuemin="0" aria-valuemax="100" data-meter="segar"></span></div>
+          <div class="meter"><span class="meter-name">Creamy</span><span class="bar" role="meter" aria-label="Creamy" aria-valuemin="0" aria-valuemax="100" data-meter="creamy"></span></div>
+          <div class="meter"><span class="meter-name">Pekat</span><span class="bar" role="meter" aria-label="Pekat" aria-valuemin="0" aria-valuemax="100" data-meter="pekat"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section band" id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Menu es teh</h2>
+        <p>Sudah diracik dan siap dipesan. Ingin mengubahnya? Tekan Ubah, atur di peracik, lalu tambahkan.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter menu">
+        <button type="button" data-filter="semua" aria-pressed="true">Semua</button>
+        <button type="button" data-filter="klasik" aria-pressed="false">Klasik</button>
+        <button type="button" data-filter="buah" aria-pressed="false">Buah</button>
+        <button type="button" data-filter="creamy" aria-pressed="false">Creamy</button>
+        <button type="button" data-filter="favorit" aria-pressed="false">Favorit <span id="favCount">0</span></button>
+      </div>
+    </div>
+    <ul class="menu-list" id="menuList"></ul>
+    <p class="empty" id="menuEmpty" hidden>Belum ada favorit. Tekan ikon hati di menu untuk menyimpannya.</p>
+  </div>
+</section>
+
+<!-- GALERI -->
+<section class="section" id="galeri">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Galeri</h2>
+        <p>Sekilas racikan dan suasana dari warung kami. Ketuk gambar untuk memperbesar.</p>
+      </div>
+    </div>
+    <div class="gallery" id="gallery"></div>
+    <p class="empty" id="galleryEmpty" hidden>Belum ada foto.</p>
+  </div>
+</section>
+
+<!-- PESANAN -->
+<section class="section band" id="pesanan">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Pesananmu</h2>
+        <p>Cek lagi jumlahnya, atur pengambilan, lalu kirim pesanan lewat WhatsApp. <span class="status" data-status></span></p>
+      </div>
+    </div>
+    <div class="order">
+      <div>
+        <ul class="cart-list" id="cartList"></ul>
+        <div class="empty" id="cartEmpty">Belum ada pesanan. Pilih dari <a href="#menu">menu</a> atau <a href="#racik">racik es tehmu</a>.</div>
+        <div class="totals" aria-live="polite">
+          <div><span>Subtotal</span><span id="subTotal">Rp 0</span></div>
+          <div class="disc" id="discRow" hidden><span id="discLabel">Diskon</span><span id="discAmt"></span></div>
+          <div id="feeRow" hidden><span>Ongkos antar</span><span id="feeAmt"></span></div>
+          <div class="grand"><span>Total</span><strong id="cartTotal">Rp 0</strong></div>
+        </div>
+        <button class="btn ghost small clear-btn" id="clearCart" type="button" hidden>Kosongkan pesanan</button>
+      </div>
+
+      <div class="panel checkout">
+        <fieldset class="seg">
+          <legend>Pengambilan</legend>
+          <div class="seg-opts">
+            <label><input type="radio" name="method" value="ambil" checked><span>Ambil di tempat</span></label>
+            <label><input type="radio" name="method" value="antar"><span>Diantar <small id="feeHint"></small></span></label>
+          </div>
+        </fieldset>
+        <label>Nama
+          <input type="text" id="custName" autocomplete="name" placeholder="Nama untuk pesanan">
+        </label>
+        <label id="addrLabel" hidden>Alamat pengantaran
+          <textarea id="custAddr" autocomplete="street-address" placeholder="Jalan, nomor, patokan"></textarea>
+        </label>
+        <label>Catatan
+          <textarea id="custNote" placeholder="Contoh: es batunya dipisah"></textarea>
+        </label>
+        <div>
+          <label for="promoInput">Kode promo</label>
+          <div class="promo">
+            <input type="text" id="promoInput" placeholder="Contoh: SORE10" autocomplete="off" autocapitalize="characters">
+            <button type="button" class="btn ghost small" id="promoBtn">Pakai</button>
+          </div>
+          <p class="msg" id="promoMsg"></p>
+        </div>
+        <a class="btn wide" id="waLink" href="#pesanan" target="_blank" rel="noopener" aria-disabled="true">Kirim lewat WhatsApp</a>
+        <p class="msg" id="orderMsg"></p>
+        <p class="hint">Pesananmu tersimpan di browser ini sampai kamu mengosongkannya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOKASI -->
+<section class="section" id="lokasi">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Lokasi</h2>
+        <p>Datang langsung, atau buka petunjuk arah dari perangkatmu. <span class="status" data-status></span></p>
+      </div>
+    </div>
+    <div class="loc">
+      <div>
+        <dl>
+          <div><dt>Alamat</dt><dd id="locAddr"></dd></div>
+          <div id="locLandmarkRow"><dt>Patokan</dt><dd id="locLandmark"></dd></div>
+          <div><dt>Jam buka</dt><dd id="locHours"></dd></div>
+          <div><dt>WhatsApp</dt><dd><a id="locWa" href="#lokasi" target="_blank" rel="noopener"></a></dd></div>
+        </dl>
+        <div class="loc-actions">
+          <a class="btn" id="mapLink" href="#lokasi" target="_blank" rel="noopener">Buka di Google Maps</a>
+          <a class="btn ghost" id="dirLink" href="#lokasi" target="_blank" rel="noopener">Petunjuk arah</a>
+          <button class="btn ghost" id="copyAddr" type="button">Salin alamat</button>
+        </div>
+      </div>
+      <div>
+        <div class="map">
+          <svg viewBox="0 0 760 470" role="img" aria-label="Peta ilustrasi bergaya Google Maps dengan jalan, sungai, tempat sekitar, dan penanda lokasi toko">
+  <rect width="760" height="470" fill="#eef1f5"/>
+
+  <!-- Blok bangunan / lahan -->
+  <g fill="#f8f7f2" stroke="#d9dce2" stroke-width="2">
+    <path d="M0 0H185L160 125H0Z"/>
+    <path d="M210 0H415L380 115H180Z"/>
+    <path d="M450 0H760V92L470 108Z"/>
+    <path d="M0 170L155 178L135 315H0Z"/>
+    <path d="M185 165L385 160L410 300L160 310Z"/>
+    <path d="M455 150L760 118V285L445 300Z"/>
+    <path d="M0 350L140 338L170 470H0Z"/>
+    <path d="M205 325L410 320L450 470H180Z"/>
+    <path d="M475 330L760 305V470H500Z"/>
+  </g>
+
+  <!-- Detail bangunan kecil -->
+  <g fill="#fbfaf6" stroke="#dedfe3" stroke-width="1.5" opacity=".95">
+    <rect x="25" y="28" width="72" height="48" rx="2"/>
+    <rect x="112" y="20" width="48" height="72" rx="2"/>
+    <rect x="235" y="20" width="88" height="52" rx="2"/>
+    <rect x="520" y="20" width="95" height="46" rx="2"/>
+    <rect x="575" y="190" width="110" height="55" rx="2"/>
+    <rect x="38" y="205" width="70" height="50" rx="2"/>
+    <rect x="220" y="195" width="95" height="55" rx="2"/>
+    <rect x="30" y="380" width="100" height="48" rx="2"/>
+    <rect x="250" y="365" width="115" height="62" rx="2"/>
+    <rect x="550" y="365" width="120" height="58" rx="2"/>
+  </g>
+
+  <!-- Sungai -->
+  <path d="M0 88 C95 55 145 120 245 96 S390 35 490 78 S630 125 760 72"
+        fill="none" stroke="#aebdcc" stroke-width="58" stroke-linecap="round"/>
+  <path d="M0 88 C95 55 145 120 245 96 S390 35 490 78 S630 125 760 72"
+        fill="none" stroke="#11a9bd" stroke-width="6" stroke-linecap="round"/>
+  <path d="M0 88 C95 55 145 120 245 96 S390 35 490 78 S630 125 760 72"
+        fill="none" stroke="#79d8e2" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Jalan utama horizontal -->
+  <path d="M0 292 C145 286 250 306 365 292 S595 278 760 296"
+        fill="none" stroke="#aebdcc" stroke-width="66" stroke-linecap="round"/>
+  <path d="M0 292 C145 286 250 306 365 292 S595 278 760 296"
+        fill="none" stroke="#ffffff" stroke-width="56" stroke-linecap="round"/>
+  <path d="M0 292 C145 286 250 306 365 292 S595 278 760 296"
+        fill="none" stroke="#c6a97d" stroke-width="2.5" stroke-dasharray="15 13"/>
+
+  <!-- Jalan diagonal -->
+  <path d="M535 -20 C510 70 510 125 470 190 C438 242 450 318 535 490"
+        fill="none" stroke="#aebdcc" stroke-width="55" stroke-linecap="round"/>
+  <path d="M535 -20 C510 70 510 125 470 190 C438 242 450 318 535 490"
+        fill="none" stroke="#ffffff" stroke-width="45" stroke-linecap="round"/>
+  <path d="M535 -20 C510 70 510 125 470 190 C438 242 450 318 535 490"
+        fill="none" stroke="#c6a97d" stroke-width="2.2" stroke-dasharray="14 12"/>
+
+  <!-- Jalan kecil -->
+  <path d="M75 470 C95 410 145 365 205 330 C255 300 290 245 310 170"
+        fill="none" stroke="#b8c5d2" stroke-width="32" stroke-linecap="round"/>
+  <path d="M75 470 C95 410 145 365 205 330 C255 300 290 245 310 170"
+        fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round"/>
+
+  <!-- Label jalan dan sungai -->
+  <g font-family="Figtree, Arial, sans-serif" fill="#687b8a">
+    <text x="28" y="270" font-size="17" font-weight="700">Jalan utama</text>
+    <text x="606" y="58" font-size="16" font-weight="700">Sungai</text>
+    <text x="505" y="258" font-size="15" font-weight="700" transform="rotate(73 505 258)">Jl. Talasalapang</text>
+  </g>
+
+  <!-- Taman -->
+  <path d="M595 350h125v90H595z" rx="8" fill="#b9d9c2"/>
+  <g fill="#6f9f78" opacity=".75">
+    <circle cx="615" cy="372" r="6"/><circle cx="647" cy="390" r="7"/>
+    <circle cx="680" cy="368" r="6"/><circle cx="704" cy="407" r="7"/>
+  </g>
+  <text x="630" y="421" font-family="Figtree, Arial, sans-serif" font-size="15" fill="#55745d" font-weight="700">Taman</text>
+
+  <!-- POI makanan sekitar -->
+  <g font-family="Figtree, Arial, sans-serif" font-size="13">
+    <g transform="translate(125 125)">
+      <circle r="15" fill="#fff" stroke="#d9dfe5" stroke-width="2"/>
+      <circle r="9" fill="#f28b25"/>
+      <text x="22" y="5" fill="#e66f1c" font-weight="700">Bubur ayam</text>
+      <text x="22" y="20" fill="#e66f1c">Kuliner</text>
+    </g>
+    <g transform="translate(655 170)">
+      <circle r="15" fill="#fff" stroke="#d9dfe5" stroke-width="2"/>
+      <circle r="9" fill="#7d8f9c"/>
+      <text x="-112" y="5" fill="#667784" font-weight="700">Toko sekitar</text>
+    </g>
+    <g transform="translate(175 350)">
+      <circle r="15" fill="#fff" stroke="#d9dfe5" stroke-width="2"/>
+      <circle r="9" fill="#f28b25"/>
+      <text x="22" y="5" fill="#e66f1c" font-weight="700">Warung makan</text>
+    </g>
+  </g>
+
+  <!-- Pin lokasi toko -->
+  <ellipse cx="390" cy="270" rx="17" ry="5" fill="#4f5b65" opacity=".22"/>
+  <path d="M390 268 C390 268 365 240 365 220 A25 25 0 0 1 415 220 C415 240 390 268 390 268Z"
+        fill="#df3b30"/>
+  <circle cx="390" cy="220" r="9" fill="#fff"/>
+  <circle cx="390" cy="220" r="4" fill="#df3b30"/>
+</svg>
+          <div class="map-label" data-shop-name>Es Teh Poci Nusantara</div>
+        </div>
+        <p class="map-note">Ilustrasi peta bergaya Maps. Gunakan tombol di samping untuk membuka peta dan rute sebenarnya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- HALAMAN ADMIN (buka lewat alamat #admin) -->
+<div id="adminView" class="admin">
+  <div class="wrap">
+    <div id="adminGate" class="panel gate">
+      <h1>Masuk admin</h1>
+      <label class="lbl">PIN
+        <input class="ctl" type="password" id="pinInput" inputmode="numeric" autocomplete="off" maxlength="8">
+      </label>
+      <button class="btn" id="pinBtn" type="button">Masuk</button>
+      <p class="msg" id="pinMsg"></p>
+      <p class="hint" id="pinHint">PIN awal adalah 1234. Ganti setelah masuk, di tab Data.</p>
+    </div>
+
+    <div id="adminApp" hidden>
+      <div class="admin-head">
+        <h1>Admin</h1>
+        <div class="admin-actions">
+          <a class="btn ghost small" href="#racik">Lihat situs</a>
+          <button class="btn ghost small" id="logoutBtn" type="button">Keluar</button>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Bagian admin">
+        <button type="button" role="tab" id="tabbtn-toko" aria-controls="tab-toko" data-tab="toko">Toko</button>
+        <button type="button" role="tab" id="tabbtn-menu" aria-controls="tab-menu" data-tab="menu">Menu dan harga</button>
+        <button type="button" role="tab" id="tabbtn-promo" aria-controls="tab-promo" data-tab="promo">Promo</button>
+        <button type="button" role="tab" id="tabbtn-galeri" aria-controls="tab-galeri" data-tab="galeri">Galeri</button>
+        <button type="button" role="tab" id="tabbtn-data" aria-controls="tab-data" data-tab="data">Data</button>
+      </div>
+
+      <div class="panel admin-panel">
+        <!-- TOKO -->
+        <section role="tabpanel" id="tab-toko" aria-labelledby="tabbtn-toko" hidden>
+          <div class="form-grid">
+            <label class="lbl">Nama toko<input class="ctl" id="fName" type="text" maxlength="40"></label>
+            <label class="lbl">Nomor WhatsApp<input class="ctl" id="fWa" type="tel" inputmode="tel" placeholder="0812xxxxxxxx"></label>
+            <label class="lbl wide">Alamat<input class="ctl" id="fAddr" type="text" maxlength="120"></label>
+            <label class="lbl wide">Patokan (boleh kosong)<input class="ctl" id="fLandmark" type="text" maxlength="120"></label>
+            <label class="lbl">Jam buka (0 sampai 23)<input class="ctl" id="fOpen" type="number" min="0" max="23"></label>
+            <label class="lbl">Jam tutup (1 sampai 24)<input class="ctl" id="fClose" type="number" min="1" max="24"></label>
+            <label class="lbl">Ongkos antar (Rp)<input class="ctl" id="fFee" type="number" min="0" step="500"></label>
+          </div>
+          <div class="save-row"><button class="btn" id="saveShop" type="button">Simpan</button><p class="msg" id="msgShop"></p></div>
+        </section>
+
+        <!-- MENU DAN HARGA -->
+        <section role="tabpanel" id="tab-menu" aria-labelledby="tabbtn-menu" hidden>
+          <h2 class="adm-h">Harga per rasa</h2>
+          <p class="hint">Satu kolom untuk setiap baris menu. Harga antara Rp 500 dan Rp 200.000.</p>
+          <div class="form-grid" id="priceGrid"><!-- diisi lewat script.js, satu kolom untuk setiap baris di MENU --></div>
+          <h2 class="adm-h">Ketersediaan menu</h2>
+          <p class="hint">Hilangkan centang untuk menandai menu yang sedang habis.</p>
+          <ul class="avail-list" id="availList"></ul>
+          <div class="save-row"><button class="btn" id="saveMenu" type="button">Simpan</button><p class="msg" id="msgMenu"></p></div>
+        </section>
+
+        <!-- PROMO -->
+        <section role="tabpanel" id="tab-promo" aria-labelledby="tabbtn-promo" hidden>
+          <p class="hint">Kode dibuat dari 3 sampai 16 huruf atau angka, tanpa spasi.</p>
+          <div id="promoRows" class="promo-rows"></div>
+          <div class="save-row">
+            <button class="btn ghost" id="addPromoRow" type="button">Tambah kode</button>
+            <button class="btn" id="savePromo" type="button">Simpan</button>
+            <p class="msg" id="msgPromo"></p>
+          </div>
+        </section>
+
+        <!-- GALERI -->
+        <section role="tabpanel" id="tab-galeri" aria-labelledby="tabbtn-galeri" hidden>
+          <p class="hint">Foto dikecilkan otomatis (maksimal 900 px) agar muat di penyimpanan browser. Semua perubahan langsung tersimpan.</p>
+          <div class="upload-row">
+            <input type="file" id="fileInput" class="sr-only" accept="image/*" multiple>
+            <label for="fileInput" class="btn">Tambah foto</label>
+            <p class="msg" id="msgGallery"></p>
+          </div>
+          <ul class="g-list" id="adminGallery"></ul>
+          <p class="hint" id="storageInfo"></p>
+        </section>
+
+        <!-- DATA -->
+        <section role="tabpanel" id="tab-data" aria-labelledby="tabbtn-data" hidden>
+          <h2 class="adm-h">Ekspor</h2>
+          <p class="hint">Salin teks ini sebagai cadangan atau untuk dipindahkan ke browser lain.</p>
+          <label class="check"><input type="checkbox" id="exportPhotos"> Sertakan foto yang kamu unggah (teks jadi sangat panjang)</label>
+          <textarea class="ctl mono" id="exportBox" rows="7" readonly aria-label="Data toko dalam format JSON"></textarea>
+          <div class="save-row"><button class="btn ghost" id="copyExport" type="button">Salin teks</button><p class="msg" id="msgExport"></p></div>
+
+          <h2 class="adm-h">Impor</h2>
+          <p class="hint">Tempel data hasil ekspor. Data yang ada sekarang akan diganti.</p>
+          <textarea class="ctl mono" id="importBox" rows="5" aria-label="Tempel data JSON di sini"></textarea>
+          <div class="save-row"><button class="btn ghost" id="doImport" type="button">Terapkan data</button><p class="msg" id="msgImport"></p></div>
+
+          <h2 class="adm-h">Ubah PIN</h2>
+          <div class="form-grid">
+            <label class="lbl">PIN baru (4 sampai 8 angka)<input class="ctl" id="newPin" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></label>
+            <label class="lbl">Ulangi PIN baru<input class="ctl" id="newPin2" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></label>
+          </div>
+          <div class="save-row"><button class="btn ghost" id="savePin" type="button">Simpan PIN</button><p class="msg" id="msgPin"></p></div>
+
+          <h2 class="adm-h">Kembalikan ke pengaturan awal</h2>
+          <p class="hint">Menghapus perubahan toko, harga, promo, dan foto yang tersimpan di browser ini.</p>
+          <div class="save-row"><button class="btn ghost" id="resetAll" type="button">Kembalikan pengaturan awal</button><p class="msg" id="msgReset"></p></div>
+        </section>
+      </div>
+      <p class="hint admin-note">Data admin tersimpan di browser ini saja. Pengunjung di perangkat lain tetap melihat pengaturan awal dari kode.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <img class="footer-logo" src="gambar/logo.png" width="600" height="490" alt="Logo Es Teh Poci">
+    <div><strong data-shop-name>Es Teh Poci Nusantara</strong><span id="ftHours"></span><br><span class="status" data-status></span></div>
+    <div><span id="ftAddr"></span><br>WhatsApp <span id="ftWa"></span></div>
+    <div class="footer-end"><a class="admin-link" href="#admin">Admin</a></div>
+  </div>
+</footer>
+
+<dialog id="lightbox" class="lightbox" aria-label="Foto galeri">
+  <div class="lb-media" id="lbMedia"></div>
+  <div class="lb-bar">
+    <button type="button" class="lb-btn" id="lbPrev" aria-label="Foto sebelumnya">&#8249;</button>
+    <p class="lb-cap" id="lbCap"></p>
+    <button type="button" class="lb-btn" id="lbNext" aria-label="Foto berikutnya">&#8250;</button>
+    <button type="button" class="lb-btn" id="lbClose" aria-label="Tutup foto">&#215;</button>
+  </div>
+</dialog>
+
+<div class="toast-wrap"><div class="toast" id="toast" role="status"></div></div>
+
+<script src="script.js"></script>
+</body>
+</html>

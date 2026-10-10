@@ -1,0 +1,108 @@
+<!-- HALAMAN ADMIN (buka lewat alamat #admin) -->
+<div id="adminView" class="admin">
+  <div class="wrap">
+    <div id="adminGate" class="panel gate">
+      <h1>Masuk admin</h1>
+      <label class="lbl">PIN
+        <input class="ctl" type="password" id="pinInput" inputmode="numeric" autocomplete="off" maxlength="8">
+      </label>
+      <button class="btn" id="pinBtn" type="button">Masuk</button>
+      <p class="msg" id="pinMsg"></p>
+      <p class="hint" id="pinHint">PIN awal adalah 1234. Ganti setelah masuk, di tab Data.</p>
+    </div>
+
+    <div id="adminApp" hidden>
+      <div class="admin-head">
+        <h1>Admin</h1>
+        <div class="admin-actions">
+          <a class="btn ghost small" href="#racik">Lihat situs</a>
+          <button class="btn ghost small" id="logoutBtn" type="button">Keluar</button>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Bagian admin">
+        <button type="button" role="tab" id="tabbtn-toko" aria-controls="tab-toko" data-tab="toko">Toko</button>
+        <button type="button" role="tab" id="tabbtn-menu" aria-controls="tab-menu" data-tab="menu">Menu dan harga</button>
+        <button type="button" role="tab" id="tabbtn-promo" aria-controls="tab-promo" data-tab="promo">Promo</button>
+        <button type="button" role="tab" id="tabbtn-galeri" aria-controls="tab-galeri" data-tab="galeri">Galeri</button>
+        <button type="button" role="tab" id="tabbtn-data" aria-controls="tab-data" data-tab="data">Data</button>
+      </div>
+
+      <div class="panel admin-panel">
+        <!-- TOKO -->
+        <section role="tabpanel" id="tab-toko" aria-labelledby="tabbtn-toko" hidden>
+          <div class="form-grid">
+            <label class="lbl">Nama toko<input class="ctl" id="fName" type="text" maxlength="40"></label>
+            <label class="lbl">Nomor WhatsApp<input class="ctl" id="fWa" type="tel" inputmode="tel" placeholder="0812xxxxxxxx"></label>
+            <label class="lbl wide">Alamat<input class="ctl" id="fAddr" type="text" maxlength="120"></label>
+            <label class="lbl wide">Patokan (boleh kosong)<input class="ctl" id="fLandmark" type="text" maxlength="120"></label>
+            <label class="lbl">Jam buka (0 sampai 23)<input class="ctl" id="fOpen" type="number" min="0" max="23"></label>
+            <label class="lbl">Jam tutup (1 sampai 24)<input class="ctl" id="fClose" type="number" min="1" max="24"></label>
+            <label class="lbl">Ongkos antar (Rp)<input class="ctl" id="fFee" type="number" min="0" step="500"></label>
+          </div>
+          <div class="save-row"><button class="btn" id="saveShop" type="button">Simpan</button><p class="msg" id="msgShop"></p></div>
+        </section>
+
+        <!-- MENU DAN HARGA -->
+        <section role="tabpanel" id="tab-menu" aria-labelledby="tabbtn-menu" hidden>
+          <h2 class="adm-h">Harga per rasa</h2>
+          <p class="hint">Satu kolom untuk setiap baris menu. Harga antara Rp 500 dan Rp 200.000.</p>
+          <div class="form-grid" id="priceGrid"><!-- diisi lewat script.js, satu kolom untuk setiap baris di MENU --></div>
+          <h2 class="adm-h">Ketersediaan menu</h2>
+          <p class="hint">Hilangkan centang untuk menandai menu yang sedang habis.</p>
+          <ul class="avail-list" id="availList"></ul>
+          <div class="save-row"><button class="btn" id="saveMenu" type="button">Simpan</button><p class="msg" id="msgMenu"></p></div>
+        </section>
+
+        <!-- PROMO -->
+        <section role="tabpanel" id="tab-promo" aria-labelledby="tabbtn-promo" hidden>
+          <p class="hint">Kode dibuat dari 3 sampai 16 huruf atau angka, tanpa spasi.</p>
+          <div id="promoRows" class="promo-rows"></div>
+          <div class="save-row">
+            <button class="btn ghost" id="addPromoRow" type="button">Tambah kode</button>
+            <button class="btn" id="savePromo" type="button">Simpan</button>
+            <p class="msg" id="msgPromo"></p>
+          </div>
+        </section>
+
+        <!-- GALERI -->
+        <section role="tabpanel" id="tab-galeri" aria-labelledby="tabbtn-galeri" hidden>
+          <p class="hint">Foto dikecilkan otomatis (maksimal 900 px) agar muat di penyimpanan browser. Semua perubahan langsung tersimpan.</p>
+          <div class="upload-row">
+            <input type="file" id="fileInput" class="sr-only" accept="image/*" multiple>
+            <label for="fileInput" class="btn">Tambah foto</label>
+            <p class="msg" id="msgGallery"></p>
+          </div>
+          <ul class="g-list" id="adminGallery"></ul>
+          <p class="hint" id="storageInfo"></p>
+        </section>
+
+        <!-- DATA -->
+        <section role="tabpanel" id="tab-data" aria-labelledby="tabbtn-data" hidden>
+          <h2 class="adm-h">Ekspor</h2>
+          <p class="hint">Salin teks ini sebagai cadangan atau untuk dipindahkan ke browser lain.</p>
+          <label class="check"><input type="checkbox" id="exportPhotos"> Sertakan foto yang kamu unggah (teks jadi sangat panjang)</label>
+          <textarea class="ctl mono" id="exportBox" rows="7" readonly aria-label="Data toko dalam format JSON"></textarea>
+          <div class="save-row"><button class="btn ghost" id="copyExport" type="button">Salin teks</button><p class="msg" id="msgExport"></p></div>
+
+          <h2 class="adm-h">Impor</h2>
+          <p class="hint">Tempel data hasil ekspor. Data yang ada sekarang akan diganti.</p>
+          <textarea class="ctl mono" id="importBox" rows="5" aria-label="Tempel data JSON di sini"></textarea>
+          <div class="save-row"><button class="btn ghost" id="doImport" type="button">Terapkan data</button><p class="msg" id="msgImport"></p></div>
+
+          <h2 class="adm-h">Ubah PIN</h2>
+          <div class="form-grid">
+            <label class="lbl">PIN baru (4 sampai 8 angka)<input class="ctl" id="newPin" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></label>
+            <label class="lbl">Ulangi PIN baru<input class="ctl" id="newPin2" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></label>
+          </div>
+          <div class="save-row"><button class="btn ghost" id="savePin" type="button">Simpan PIN</button><p class="msg" id="msgPin"></p></div>
+
+          <h2 class="adm-h">Kembalikan ke pengaturan awal</h2>
+          <p class="hint">Menghapus perubahan toko, harga, promo, dan foto yang tersimpan di browser ini.</p>
+          <div class="save-row"><button class="btn ghost" id="resetAll" type="button">Kembalikan pengaturan awal</button><p class="msg" id="msgReset"></p></div>
+        </section>
+      </div>
+      <p class="hint admin-note">Data admin tersimpan di browser ini saja. Pengunjung di perangkat lain tetap melihat pengaturan awal dari kode.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+[
+    {
+        "id": "ORD-20261006022730-710",
+        "created_at": "2026-10-06T02:27:30+02:00",
+        "status": "baru",
+        "created_from": "website",
+        "fulfillment": "ambil",
+        "customer": {
+            "name": "Jack",
+            "address": "",
+            "note": "Gak Pake Lama"
+        },
+        "promo": "POCI7",
+        "items": [
+            {
+                "name": "Es Teh Cappuccino",
+                "detail": "Besar, manis normal, es normal",
+                "unit": 6000,
+                "qty": 1
+            }
+        ],
+        "totals": {
+            "subtotal": 6000,
+            "discount": 600,
+            "delivery": 0,
+            "total": 5400
+        },
+        "whatsapp_url": "https://wa.me/6285845514171?text=Halo%20Es%20Teh%20Poci%20Nusantara%2C%20saya%20mau%20pesan%3A%0A-%201x%20Es%20Teh%20Cappuccino%20(Besar%2C%20manis%20normal%2C%20es%20normal)%20%3D%20Rp%206.000%0ASubtotal%3A%20Rp%206.000%0ADiskon%20(POCI7)%3A%20-Rp%20600%0ATotal%3A%20Rp%205.400%0ADiambil%20di%20tempat%0ANama%3A%20Jack%0ACatatan%3A%20Gak%20Pake%20Lama",
+        "page": "http://localhost/Web%20Test/",
+        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+    },
+    {
+        "id": "ORD-20261006023254-725",
+        "created_at": "2026-10-06T02:32:54+02:00",
+        "status": "baru",
+        "created_from": "website",
+        "fulfillment": "ambil",
+        "customer": {
+            "name": "Opi",
+            "address": "",
+            "note": "Jauh Antang"
+        },
+        "promo": "HEMAT2000",
+        "items": [
+            {
+                "name": "Es Teh Cappuccino",
+                "detail": "Besar, manis normal, es normal",
+                "unit": 6000,
+                "qty": 2
+            }
+        ],
+        "totals": {
+            "subtotal": 12000,
+            "discount": 2000,
+            "delivery": 0,
+            "total": 10000
+        },
+        "whatsapp_url": "https://wa.me/6285845514171?text=Halo%20Es%20Teh%20Poci%20Nusantara%2C%20saya%20mau%20pesan%3A%0A-%202x%20Es%20Teh%20Cappuccino%20(Besar%2C%20manis%20normal%2C%20es%20normal)%20%3D%20Rp%2012.000%0ASubtotal%3A%20Rp%2012.000%0ADiskon%20(HEMAT2000)%3A%20-Rp%202.000%0ATotal%3A%20Rp%2010.000%0ADiambil%20di%20tempat%0ANama%3A%20Opi%0ACatatan%3A%20Jauh%20Antang",
+        "page": "http://localhost/Web%20Test/",
+        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+    },
+    {
+        "id": "ORD-20261007042747-677",
+        "created_at": "2026-10-07T04:27:47+02:00",
+        "status": "baru",
+        "created_from": "website",
+        "fulfillment": "ambil",
+        "customer": {
+            "name": "Aufi",
+            "address": "",
+            "note": "Es batu di pisah"
+        },
+        "promo": "POCI7",
+        "items": [
+            {
+                "name": "Es Teh Apple",
+                "detail": "Besar, manis normal, es normal",
+                "unit": 5000,
+                "qty": 2
+            }
+        ],
+        "totals": {
+            "subtotal": 10000,
+            "discount": 1000,
+            "delivery": 0,
+            "total": 9000
+        },
+        "whatsapp_url": "https://wa.me/6285845514171?text=Halo%20Es%20Teh%20Poci%20Nusantara%2C%20saya%20mau%20pesan%3A%0A-%202x%20Es%20Teh%20Apple%20(Besar%2C%20manis%20normal%2C%20es%20normal)%20%3D%20Rp%2010.000%0ASubtotal%3A%20Rp%2010.000%0ADiskon%20(POCI7)%3A%20-Rp%201.000%0ATotal%3A%20Rp%209.000%0ADiambil%20di%20tempat%0ANama%3A%20Aufi%0ACatatan%3A%20Es%20batu%20di%20pisah",
+        "page": "http://localhost/Web%20Test/#atas",
+        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+    }
+]
