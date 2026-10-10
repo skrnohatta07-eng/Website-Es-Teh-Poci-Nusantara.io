@@ -1,6 +1,3 @@
-# Web Test — Es Teh Poci Nusantara
-
-Website pemesanan Es Teh Poci Nusantara dengan frontend HTML, CSS, JavaScript/jQuery, backend PHP, dan database MySQL.
 
 ## Struktur proyek
 
@@ -42,9 +39,3 @@ Database yang digunakan aplikasi adalah `esteh_poci`. Pengaturan koneksi default
 - Di phpMyAdmin, pilih database `esteh_poci`.
 - Periksa tabel `orders` dan `order_items` untuk memastikan pesanan tersimpan.
 
-## Catatan
-
-- `database.sql` berisi skema tabel dan data awal. Impor ulang database dapat menimpa data awal tertentu; cadangkan database sebelum mengimpor ulang.
-- Data yang dibuat saat website dijalankan tersimpan di MySQL lokal, bukan otomatis di GitHub.
-- `bagian/` dan `gabung.js` merupakan sumber untuk menyusun ulang `index.html`; website yang dijalankan langsung menggunakan `index.html`.
-- Jangan menyimpan kata sandi produksi, kredensial pribadi, atau data pelanggan nyata di repository publik.
