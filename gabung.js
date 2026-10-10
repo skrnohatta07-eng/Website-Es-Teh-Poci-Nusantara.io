@@ -1,11 +1,3 @@
-// gabung.js  ->  menggabungkan berkas di folder bagian/ menjadi index.html
-//
-// Cara pakai (perlu Node.js):
-//     node gabung.js
-//
-// Alur kerja: ubah tampilan di berkas dalam folder bagian/ (misalnya 03-menu.html),
-// lalu jalankan perintah di atas. index.html akan dibuat ulang otomatis.
-// Urutan bagian diatur di bagian/_kerangka.html.
 
 const fs = require("fs");
 const path = require("path");

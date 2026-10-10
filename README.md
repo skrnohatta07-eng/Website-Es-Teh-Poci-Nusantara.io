@@ -1,38 +1,50 @@
-# Es Teh Poci Nusantara — PHP + jQuery
+# Web Test — Es Teh Poci Nusantara
 
-Versi ini sudah mengaktifkan integrasi **PHP + jQuery**.
+Website pemesanan Es Teh Poci Nusantara dengan frontend HTML, CSS, JavaScript/jQuery, backend PHP, dan database MySQL.
 
-## Alur
-1. `index.html` memuat `jquery.min.js`, kemudian `jquery.js`, kemudian `script.js`.
-2. `jquery.js` mengambil konfigurasi toko melalui `GET api.php?action=config` menggunakan jQuery AJAX.
-3. Saat tombol **Kirim lewat WhatsApp** diklik, jQuery mengambil data keranjang dari `localStorage`, data pelanggan, metode pengambilan, promo, dan total.
-4. Data dikirim menggunakan `POST api.php?action=order` dengan format JSON.
-5. `api.php` memvalidasi dan menyimpan pesanan ke `data/orders.json`.
-6. WhatsApp tetap dibuka seperti alur website sebelumnya.
+## Struktur proyek
 
-## Menjalankan
-Jangan membuka `index.html` dengan `file://`. Gunakan server PHP, misalnya XAMPP:
-
-- Salin folder proyek ke `htdocs`.
-- Jalankan **Apache** di XAMPP.
-- Buka `http://localhost/Web%20Test/` atau alamat folder sesuai nama folder di komputer.
-
-Alternatif terminal:   
-
-```bash
-php -S localhost:8000
+```text
+Web Test/
+├── index.html                 # Halaman utama website
+├── style.css                  # Gaya dan tata letak
+├── script.js                  # Logika antarmuka dan keranjang
+├── jquery.min.js              # Library jQuery
+├── jquery.js                  # AJAX dan efek antarmuka khusus proyek
+├── api.php                    # Backend PHP dan koneksi MySQL
+├── database.sql               # Struktur tabel dan data awal MySQL
+├── gabung.js                  # Skrip opsional untuk merakit index.html dari bagian/
+├── bagian/                    # Potongan HTML sumber
+├── gambar/                    # Logo, favicon, dan gambar menu
+└── data/
+    └── config.json            # Konfigurasi lokal lama/cadangan
 ```
 
-lalu buka `http://localhost:8000/`.
+## Persyaratan
 
-## File penting
-- `index.html` — memuat library jQuery dan script aplikasi.
-- `jquery.min.js` — library jQuery lokal (tidak bergantung CDN).
-- `jquery.js` — kode jQuery untuk AJAX PHP dan efek UI.
-- `script.js` — logika utama website dan keranjang.
-- `api.php` — backend PHP.
-- `data/config.json` — konfigurasi toko untuk endpoint PHP.
-- `data/orders.json` — penyimpanan pesanan sederhana berbasis JSON.
+- XAMPP (Apache dan MySQL)
+- PHP dengan ekstensi PDO MySQL aktif
+- Browser modern
+
+## Menjalankan di komputer lokal
+
+1. Ekstrak folder `Web Test` ke `C:\xampp\htdocs\Web Test`.
+2. Buka XAMPP Control Panel dan jalankan **Apache** serta **MySQL**.
+3. Buka `http://localhost/phpmyadmin`.
+4. Pilih menu **Impor**, lalu pilih `database.sql`.
+5. Setelah impor selesai, buka `http://localhost/Web%20Test/`.
+
+Database yang digunakan aplikasi adalah `esteh_poci`. Pengaturan koneksi default di `api.php` adalah host `127.0.0.1`, pengguna `root`, dan kata sandi kosong. Ubah konstanta koneksi di `api.php` jika pengaturan MySQL lokal berbeda.
+
+## Pengujian database
+
+- Buka website dan buat pesanan percobaan.
+- Di phpMyAdmin, pilih database `esteh_poci`.
+- Periksa tabel `orders` dan `order_items` untuk memastikan pesanan tersimpan.
 
 ## Catatan
-Folder `data` harus memiliki izin tulis agar PHP dapat menyimpan pesanan.
+
+- `database.sql` berisi skema tabel dan data awal. Impor ulang database dapat menimpa data awal tertentu; cadangkan database sebelum mengimpor ulang.
+- Data yang dibuat saat website dijalankan tersimpan di MySQL lokal, bukan otomatis di GitHub.
+- `bagian/` dan `gabung.js` merupakan sumber untuk menyusun ulang `index.html`; website yang dijalankan langsung menggunakan `index.html`.
+- Jangan menyimpan kata sandi produksi, kredensial pribadi, atau data pelanggan nyata di repository publik.
